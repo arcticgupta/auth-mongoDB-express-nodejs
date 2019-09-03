@@ -1,8 +1,6 @@
-//Require mongoose package
 const mongoose = require('mongoose');
 var jwt = require('jwt-simple');
 
-//Define BucketlistSchema with title, description and category
 const UserInfoSchema = mongoose.Schema({
     username: {
         type: String,
@@ -14,7 +12,6 @@ const UserInfoSchema = mongoose.Schema({
 
 const UserInfos = module.exports = mongoose.model('UserInfos', UserInfoSchema );
 
-//BucketList.find() returns all the lists
 module.exports.getAllUsers = (callback) => {
     UserInfos.find({ role: "normal" },callback);
 }
@@ -29,12 +26,10 @@ module.exports.getExpiry = (id, callback) => {
     UserInfos.find(query, callback);
 }
 
-//newList.save is used to insert the document into MongoDB
 module.exports.addUser = (newUser, callback) => {
     newUser.save(callback);
 }
 
-//Here we need to pass an id parameter to BUcketList.remove
 module.exports.deleteById = (id, callback) => {
     let query = {_id: id};
     UserInfos.remove(query, callback);
@@ -63,7 +58,3 @@ module.exports.profileRead = function(req, res,next) {
         res.status(401).json({success:false, message: `Unauthorized`});
     }
   };
-
-
-
-//If you’re wondering about the lack of an id field, it’s because we’ll be using the default _id that will be created by Mongoose.

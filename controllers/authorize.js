@@ -16,7 +16,6 @@ router.get('/',(req,res) => {
     });
 });
 
-//POST HTTP method to /bucketlist
 router.post('/register', (req,res,next) => {
     let newUser = new userList({
         username: req.body.username,
