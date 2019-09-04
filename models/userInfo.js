@@ -44,17 +44,20 @@ module.exports.profileRead = function(req, res,next) {
                 res.status(401).json({success:false, message: `Token not processed`});
             }
             else{
+                var superUser = "donald";
                 var exp= decoded.exp;
                 var cur= new Date();
                 if (exp>cur.getTime()/1000){
-                    next()
-                }else {
-                    if (decoded.username==="superAdmin") next()
+                    if (req.params.user===decoded.username) next()
+                    else if (decoded.username===superUser) next()
+                    else res.status(401).json({success:false, message:"User not Authorized"}); 
+                }
+                else {
                     res.status(401).json({success:false, message:"Timed Out"});
                 }
             }
         })
     } else{
-        res.status(401).json({success:false, message: `Unauthorized`});
+        res.status(401).json({success:false, message: `User could not be authenticated`});
     }
   };
