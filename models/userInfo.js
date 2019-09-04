@@ -16,6 +16,13 @@ module.exports.getAllUsers = (callback) => {
     UserInfos.find({ role: "normal" },callback);
 }
 
+module.exports.getPaginatedUsers = (page, callback) => {
+    var perPage=3
+    UserInfos.find({ role: "normal" },callback)
+    .skip((perPage * page) - perPage)
+    .limit(perPage);
+}
+
 module.exports.getPassword = (username, callback) => {
     let query = {username: username};
     UserInfos.find(query, callback);

@@ -16,6 +16,18 @@ router.get('/',(req,res) => {
     });
 });
 
+router.post('/',(req,res) => {
+    userList.getPaginatedUsers(req.body.page,(err, infos)=> {
+        if(err) {
+            res.json({success:false, message: `Failed to load all infos. Error: ${err}`});
+        }
+        else {
+            res.write(JSON.stringify({success: true, infos:infos},null,2));
+            res.end();
+        }
+    });
+});
+
 router.post('/register', (req,res,next) => {
     var basicRole="normal"
     let newUser = new userList({
