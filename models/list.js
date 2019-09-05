@@ -13,6 +13,14 @@ const BucketlistSchema = mongoose.Schema({
         enum: ['High', 'Medium', 'Low']
     }
 });
+// Hooks pre and post
+// BucketlistSchema.pre('find', function (next) {
+//     console.log(Date.now())
+//     next()    
+// })
+// BucketlistSchema.post('find', function (next) {
+//     console.log(Date.now())    
+// })
 
 const BucketList = module.exports = mongoose.model('BucketList', BucketlistSchema );
 

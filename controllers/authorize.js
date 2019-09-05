@@ -16,7 +16,7 @@ router.get('/',(req,res) => {
     });
 });
 
-router.post('/',(req,res) => {
+router.post('/',(req,res,next) => {
     userList.getPaginatedUsers(req.body.page,(err, infos)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all infos. Error: ${err}`});
